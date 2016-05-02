@@ -56,7 +56,7 @@ var result = api.Geocode.AsJson(address, googleApiKey);
 #### Url Generation
 
 The geocode's url is:
-http://maps.googleapis.com/maps/api/geocode/json?address=<address>&key=<key>
+http://maps.googleapis.com/maps/api/geocode/json?address={address}&key={key}
 
 By default, WebApi Proxy builds the url according to this format:
 {baseurl}/{controller}/{action}?{query}
@@ -65,7 +65,7 @@ Segments:
 BaseUrl: http://maps.googleapis.com/maps/api/
 Controller: geocode
 Action: json
-Query: address=<address>&key=<key>
+Query: address={address}&key={key}
 
 If you need to implement a custom url builder you can create an implementation of IUrlBuilder
 ```
