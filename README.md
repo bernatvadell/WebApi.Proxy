@@ -9,8 +9,8 @@ Install this package from NuGet:
 
 #### My first webapi client with WebApi.Proxy (Example Google Map - Geocode)
 
-We are asumming all web apis have one or more controllers.
-Each controller have one o more actions. In this case, we build a container 'GoogleMap' with a controller 'Geocode'.
+We assume all web apis have one or more controllers.
+Each controller has one o more actions. In this case, we build a container called 'GoogleMap' with a controller 'Geocode'.
 
 ###### Google Map Container
 ```
@@ -43,7 +43,7 @@ var generator = new Proxy.ProxyGenerator<IGoogleMapAPI>(new Proxy.WebApiConfigur
     BaseAddress = "http://maps.googleapis.com/maps/api/"
 });
 
-// 2- Build API for access it
+// 2- Build API for access to it
 var api = generator.Build();
 
 var googleApiKey = "";
@@ -58,7 +58,7 @@ var result = api.Geocode.AsJson(address, googleApiKey);
 The geocode's url is:
 http://maps.googleapis.com/maps/api/geocode/json?address=<address>&key=<key>
 
-By default, WebApi Proxy build the url with this format:
+By default, WebApi Proxy builds the url according to this format:
 {baseurl}/{controller}/{action}?{query}
 
 Segments:
@@ -67,7 +67,7 @@ Controller: geocode
 Action: json
 Query: address=<address>&key=<key>
 
-If you need implements a custom url builder you can create implementation of IUrlBuilder
+If you need to implement a custom url builder you can create an implementation of IUrlBuilder
 ```
 public interface IUrlBuilder
 {
@@ -86,7 +86,7 @@ public interface IGoogleMap
 }
 ```
 
-or if you only apply this UrlBuilder for a specific controller
+or, if you only apply this UrlBuilder for a specific controller
 
 ```
 [UrlBuilder(typeof(MyCustomUrlBuilder))]
