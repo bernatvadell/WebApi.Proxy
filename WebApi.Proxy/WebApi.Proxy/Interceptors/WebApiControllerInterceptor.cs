@@ -81,7 +81,9 @@ namespace WebApi.Proxy.Interceptors
                               }).ToList()
             };
 
-            action.BodyParameter = action.Parameters.FirstOrDefault(x => x.Output == ParamOutput.Body) ?? arguments.FirstOrDefault();
+            var bodyParameter = action.Parameters.FirstOrDefault(x => x.Output == ParamOutput.Body);
+            if (bodyParameter != null)
+                action.BodyParameter = bodyParameter.Value;
 
             return action;
         }

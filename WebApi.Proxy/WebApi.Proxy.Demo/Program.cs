@@ -24,10 +24,17 @@ namespace WebApi.Proxy.Demo
             var address = "1600 Amphitheatre Parkway, Mountain View, CA";
 
             // 3- Call API and get results
+            var resultPost = api.Geocode.AsJsonPost(new GeocodeRequest
+            {
+                Address = address,
+                Key = googleApiKey
+            });
+
             var result = api.Geocode.AsJson(address, googleApiKey);
             var result2 = api.Geocode.AsJsonAsync(address, googleApiKey).Result;
             var result3 = api.Geocode.AsXml(address, googleApiKey);
             var result4 = api.Geocode.AsXmlAsync(address, googleApiKey).Result;
+
         }
     }
 }
