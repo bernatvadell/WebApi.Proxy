@@ -5,7 +5,7 @@ Build your web api client based on an interface
 
 Install this package from NuGet:
 
-> Install-Package "Pending"
+> Install-Package WebApi.Proxy.Client
 
 #### My first webapi client with WebApi.Proxy (Example Google Map - Geocode)
 
