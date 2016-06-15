@@ -60,7 +60,8 @@ namespace WebApi.Proxy.Interceptors
 
         private ActionDefinition GetActionDefinition(MethodInfo method, object[] arguments)
         {
-            var name = method.GetCustomAttribute<NameAttribute>()?.Name ?? method.Name;
+            var attr = method.GetCustomAttribute<NameAttribute>();
+            var name = (attr != null ? attr.Name : null) ?? method.Name;
 
             var args = method.GetParameters();
             var methodType = GetMethodType(method);
@@ -125,8 +126,11 @@ namespace WebApi.Proxy.Interceptors
             if (property == null)
                 throw new ApplicationException("Only accept controller declared with getter property");
 
-            var name = property.GetCustomAttribute<NameAttribute>()?.Name
-                ?? _method.ReturnType.GetCustomAttribute<NameAttribute>()?.Name
+            var attr = property.GetCustomAttribute<NameAttribute>();
+            var attrMethod = _method.ReturnType.GetCustomAttribute<NameAttribute>();
+
+            var name = (attr != null ? attr.Name : null)
+                ?? (attrMethod != null ? attrMethod.Name : null)
                 ?? Regex.Replace(_method.ReturnType.Name, "(?:^I|Controller$)", string.Empty, RegexOptions.IgnoreCase);
 
             return new ControllerDefinition
@@ -197,9 +201,9 @@ namespace WebApi.Proxy.Interceptors
             return genericMethod.Invoke(null, new object[] { objectTask }) as Task;
         }
 
-        private static async Task<T> CallTask<T>(Task<object> task)
+        private static Task<T> CallTask<T>(Task<object> task)
         {
-            return (T)await task;
+            return task.ContinueWith(x => (T)x.Result);
         }
 
         private Type GetReturnType(IInvocation invocation)
