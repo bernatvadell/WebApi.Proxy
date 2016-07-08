@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.Proxy.Types
+namespace WebApi.Proxy.Attributes
 {
-    public enum ParamOutput
+    public class RouteAttribute : Attribute
     {
-        QueryString,
-        Body,
-        RestId
+        public bool IsRest { get; set; }
     }
 }

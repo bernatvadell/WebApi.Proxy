@@ -57,6 +57,7 @@
     <Compile Include="Attributes\MethodTypeAttribute.cs" />
     <Compile Include="Attributes\NameAttribute.cs" />
     <Compile Include="Attributes\ParamOutputAttribute.cs" />
+    <Compile Include="Attributes\RouteAttribute.cs" />
     <Compile Include="Attributes\UrlBuilderAttribute.cs" />
     <Compile Include="Components\DefaultUrlBuilder.cs" />
     <Compile Include="Components\IUrlBuilder.cs" />

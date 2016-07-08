@@ -68,6 +68,7 @@ namespace WebApi.Proxy.Interceptors
             arguments = arguments ?? new object[] { };
             var action = new ActionDefinition
             {
+                Attributes = method.GetCustomAttributes(),
                 Controller = _controllerDefinition,
                 MethodType = methodType,
                 Name = name,
@@ -135,7 +136,8 @@ namespace WebApi.Proxy.Interceptors
 
             return new ControllerDefinition
             {
-                Name = name
+                Name = name,
+                Attributes = property.GetCustomAttributes().Concat(property.PropertyType.GetCustomAttributes()).ToArray()
             };
         }
 
@@ -224,12 +226,13 @@ namespace WebApi.Proxy.Interceptors
 
         private ParamOutput GetParamOutput(MethodType methodType, ParameterInfo parameterInfo)
         {
-            if (methodType == MethodType.Get) return ParamOutput.QueryString;
-
             var attribute = parameterInfo.GetCustomAttributes<ParamOutputAttribute>().FirstOrDefault();
 
             if (attribute != null)
                 return attribute.ParamOutput;
+
+            if (methodType == MethodType.Get)
+                return ParamOutput.QueryString;
 
             return parameterInfo.ParameterType.IsPrimitive ? ParamOutput.QueryString : ParamOutput.Body;
         }

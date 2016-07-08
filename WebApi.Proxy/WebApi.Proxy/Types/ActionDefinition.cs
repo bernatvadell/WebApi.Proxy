@@ -15,5 +15,6 @@ namespace WebApi.Proxy.Types
         public List<ParamDefinition> Parameters { get; set; }
         public ControllerDefinition Controller { get; set; }
         public object BodyParameter { get; set; }
+        public IEnumerable<Attribute> Attributes { get; set; }
     }
 }
